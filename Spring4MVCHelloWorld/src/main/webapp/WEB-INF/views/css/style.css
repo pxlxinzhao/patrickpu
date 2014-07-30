@@ -1,0 +1,21 @@
+@CHARSET "UTF-8";
+
+     #big-canvas{
+     		margin-left: auto ;
+	 	    margin-right: auto ;
+	 	    padding: 0px, 50px, 0px, 50px;
+	 	
+	 	    background-image: url('123.jpg');
+     }
+    
+      h1 {  color: green;
+      	    text-align: center ; 
+     	 }    
+      #map-canvas {
+	        margin-left: 300px ;
+	 	    margin-right: auto ;
+	        height: 500px;
+	        width: 100%;
+	        margin: 0px;
+	        padding: 0px, 200px, 0px, 200px;
+	      }

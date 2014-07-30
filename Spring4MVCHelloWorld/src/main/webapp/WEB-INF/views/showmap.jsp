@@ -1,4 +1,5 @@
-<%  String lat = (String) request.getAttribute ("lat");
+<%  String user = (String) request.getAttribute ("user");
+	String lat = (String) request.getAttribute ("lat");
     String lon = (String) request.getAttribute ("lon");
 	Double latitude = Double.parseDouble(lat);
 	Double longtitude = Double.parseDouble(lon);
@@ -10,13 +11,11 @@
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
     <title>Simple markers</title>
-    <style>
-      html, body, #map-canvas {
-        height: 100%;
-        margin: 0px;
-        padding: 0px
-      }
+      
+    <style type="text/css">
+    <%@include file="css/style.css" %>
     </style>
+      
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
     <script>
 function initialize() {
@@ -24,7 +23,7 @@ function initialize() {
 /*   var myLatlng = new google.maps.LatLng(-25.363882,131.044922); */
   var myLatlng = new google.maps.LatLng(<%=latitude%>,<%=longtitude%>);
   var mapOptions = {
-    zoom: 4,
+    zoom: 8,
     center: myLatlng
   }
   var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
@@ -41,6 +40,10 @@ google.maps.event.addDomListener(window, 'load', initialize);
     </script>
   </head>
   <body>
+  
+  <div id="big-canvas">
+    <h1> Dear: <%=user%></h1>
     <div id="map-canvas"></div>
+  </div>
   </body>
 </html>
