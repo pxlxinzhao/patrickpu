@@ -53,12 +53,24 @@
             <requestFocus />
         </EditText>
 
-        <Button
-            android:id="@+id/btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Submit" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
 
+            <Button
+                android:id="@+id/btnstart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Start Tracking" />
+
+            <Button
+                android:id="@+id/btnstop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10px"
+                android:text="Stop Tracking" />
+
+        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>

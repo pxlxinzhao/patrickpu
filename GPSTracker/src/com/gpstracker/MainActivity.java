@@ -25,22 +25,25 @@ import android.widget.Toast;
 
 public class MainActivity extends ActionBarActivity {
 
-	Button btn;
+	Button btnstart;
+	Button btnstop;
 	EditText username,latitude,longtitude;
 	String requesturl;
 	LocationManager lm;
+	LocationListener ll;
 	boolean b=true;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		btn = (Button)findViewById(R.id.btn);
+		btnstart = (Button)findViewById(R.id.btnstart);
+		btnstop  = (Button)findViewById(R.id.btnstop);
 		username = (EditText)findViewById(R.id.username);
 		latitude = (EditText)findViewById(R.id.latitude);
 		longtitude = (EditText)findViewById(R.id.longtitude);
 		
-		btn.setOnClickListener(new View.OnClickListener() {
+		btnstart.setOnClickListener(new View.OnClickListener() {
 		
 	
 			@Override
@@ -52,13 +55,22 @@ public class MainActivity extends ActionBarActivity {
 				else{
 				
 				lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE); 
-				LocationListener ll = new mylocationlistener();
+				ll = new mylocationlistener();
 				lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, ll);
 				
 				showsuccess();
 				
 				}
 				
+			}
+		});
+		
+		btnstop.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				lm.removeUpdates(ll);
 			}
 		});
 	}
@@ -143,7 +155,7 @@ public class MainActivity extends ActionBarActivity {
 	    	protected void onPostExecute(String results) {
 	    	if (results!=null) {
 	    	}
-	    	btn.setClickable(true);
+	    	btnstart.setClickable(true);
 	    	}
 	    	}
 
