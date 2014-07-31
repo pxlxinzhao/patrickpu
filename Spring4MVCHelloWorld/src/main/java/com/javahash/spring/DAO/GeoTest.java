@@ -28,7 +28,7 @@ public class GeoTest {
 		list2.add(lon2);
 		
 		Geoinfo geo = Geoinfo.getInstance();
-		
+	
 		geo.getMap().put(userid, list);
 		geo.getMap().put(userid2, list2);
 		

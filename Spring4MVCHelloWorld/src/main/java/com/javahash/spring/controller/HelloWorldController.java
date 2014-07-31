@@ -1,9 +1,15 @@
 package com.javahash.spring.controller;
 
-import org.springframework.stereotype.Controller;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.cfg.Configuration;
+import org.springframework.stereotype.Controller; 
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import com.javahash.spring.Model.User;
 
 @Controller
 public class HelloWorldController { 
@@ -21,6 +27,22 @@ public class HelloWorldController {
     	model.addAttribute("user", user);
         model.addAttribute("lat", lat);
         model.addAttribute("lon", lon);
+        
+        User user2save = new User();
+        user2save.setUsername(user);
+        user2save.setLatitude(lat);
+        user2save.setLongtitude(lon);
+        
+        Configuration configuration = new Configuration().configure();  
+		StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder().  
+		applySettings(configuration.getProperties());  
+		SessionFactory factory = configuration.buildSessionFactory(builder.build()); 
+		Session session = factory.openSession();
+		session.beginTransaction();
+		session.save(user2save);
+		session.getTransaction().commit();
+		session.close();
+		
         return "showmap";
     }
 }
