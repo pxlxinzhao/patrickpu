@@ -21,7 +21,7 @@ public class HelloWorldController {
     }
     
     @RequestMapping("/map")
-    public String mapping(@RequestParam(value="user", required=false, defaultValue="tester") String user,
+    public String mapping(@RequestParam(value="user", required=true) String user,
     					  @RequestParam(value="lat", required=false, defaultValue="35.40") String lat,
     					  @RequestParam(value="lon", required=false, defaultValue="139.45") String lon, Model model) {
     	model.addAttribute("user", user);

@@ -21,7 +21,7 @@ public class User implements Serializable{
 	@SequenceGenerator(name="seq",initialValue=101, allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="seq")
 	private int user_id;
-	@Column
+	@Column(nullable=false)
 	private String username;
 	@Column
 	private String latitude;
