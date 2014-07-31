@@ -1,18 +1,10 @@
 package com.gpstracker;
 
-import java.io.IOException;
-import java.io.InputStream;
-
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.protocol.BasicHttpContext;
-import org.apache.http.protocol.HttpContext;
-
-import android.content.Intent;
-import android.os.AsyncTask;
+import android.content.Context;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
@@ -22,10 +14,10 @@ import android.widget.Toast;
 
 public class MainActivity extends ActionBarActivity {
 
-//	public static final int REQUEST_CODE = 1;
 	Button btn;
 	EditText username,latitude,longtitude;
 	String requesturl;
+	LocationManager lm;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -35,153 +27,152 @@ public class MainActivity extends ActionBarActivity {
 		username = (EditText)findViewById(R.id.username);
 		latitude = (EditText)findViewById(R.id.latitude);
 		longtitude = (EditText)findViewById(R.id.longtitude);
-//		final Intent intent = new Intent(this, AddWordActivity.class);
+		
 		
 		btn.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				
+
 //				requesturl = "http://10.0.2.2:8080/Spring4MVCHelloWorld/map.do"
 //					+ "?user=" + username.toString() + "&lat=" + latitude.toString() + "&lon=" + longtitude.toString();
-				requesturl = "http://10.0.2.2:8080/Spring4MVCHelloWorld/map.do"
-						+ "?user=" + "xl" + "&lat=" + "25" + "&lon=" + "40";
-				btn.setClickable(false);
-				new LongRunningGetIO().execute();
+//				requesturl = "http://10.0.2.2:8080/Spring4MVCHelloWorld/map.do"
+//						+ "?user=" + "xl" + "&lat=" + "77" + "&lon=" + "77";
+//				btn.setClickable(false);
+//				new LongRunningGetIO().execute();
+				
+//				Double lat = getLastBestLocation().getLatitude();
+//				Double lon = getLastBestLocation().getLongitude();
+
+//				Log.v("tag", "The latitude is " + String.valueOf(lat) + "And the Longtitude is " + String.valueOf(lon));
+				
+				lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE); 
+				LocationListener ll = new mylocationlistener();
+				lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, ll);
+				
+				
+				
+				
+				
 				showtext();
 				
-//				startActivityForResult(intent, REQUEST_CODE);
 				
-//				Toast.makeText(this, "Succes", Toast.LENGTH_SHORT).show()
-	
-//				new RequestTask().execute("http://10.0.2.2:8080/Spring4MVCHelloWorld/map.do"
-//						+ "?user=" + username + "&lat=" + latitude + "&lon=" + longtitude);
 			}
 		});
 	}
 	
-	  private class LongRunningGetIO extends AsyncTask <Void, Void, String> {
-	    	
-	    	
-	    	protected String getASCIIContentFromEntity(HttpEntity entity) throws IllegalStateException, IOException {
-	    	InputStream in = entity.getContent();
-	    	StringBuffer out = new StringBuffer();
-	    	int n = 1;
-	    	while (n>0) {
-	    	byte[] b = new byte[4096];
-	    	n =  in.read(b);
-	    	if (n>0) out.append(new String(b, 0, n));
-	    	}
-	    	return out.toString();
-	    	}
-	    	
-	    	
-	    	
-	    	@Override
-	    	protected String doInBackground(Void... params) {
-	    	HttpClient httpClient = new DefaultHttpClient();
-	    	HttpContext localContext = new BasicHttpContext();
-//	    	HttpGet httpGet = new HttpGet("http://10.0.2.2:5050/yyy/rest/curex/10/USD/CAD");
-	    	
-	    	HttpGet httpGet = new HttpGet(requesturl);
-	    	String text = null;
-	    	try {
-	    	HttpResponse response = httpClient.execute(httpGet, localContext);
-	    	HttpEntity entity = response.getEntity();
-	    	text = getASCIIContentFromEntity(entity);
-	    	} catch (Exception e) {
-	    	return e.getLocalizedMessage();
-	    	}
-	    	return text;
-	    	}
-	    	
-	    	
-	    	
-	    	protected void onPostExecute(String results) {
-	    	if (results!=null) {
-	    		
-//	    	mytext.setText(results);
+	
+	class mylocationlistener implements LocationListener{
 
-	    	}
-	    	
-	    	btn.setClickable(true);
-	    	}
-	    	}
+		@Override
+		public void onLocationChanged(Location location) {
+			// TODO Auto-generated method stub
+			if(location != null)
+			{
+				double pLong = location.getLongitude();
+				double pLat = location.getLatitude();
+				latitude.setText(Double.toString(pLat));
+				longtitude.setText(Double.toString(pLong));
+			}
+		}
+
+		@Override
+		public void onStatusChanged(String provider, int status,
+				Bundle extras) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void onProviderEnabled(String provider) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void onProviderDisabled(String provider) {
+			// TODO Auto-generated method stub
+			
+		}
+		
+		
+	}
 	
 	
-//	  @Override
-//	  protected void onActivityResult (int requestCode, int resultCode, Intent data){
-//	     if(requestCode==REQUEST_CODE && resultCode == RESULT_OK){
-//	         Toast.makeText(this, "Succes", Toast.LENGTH_SHORT).show(); 
-//	      }
-//	  }
-//	
-	
+//	  private class LongRunningGetIO extends AsyncTask <Void, Void, String> {
+//	    	
+//	    	
+//	    	protected String getASCIIContentFromEntity(HttpEntity entity) throws IllegalStateException, IOException {
+//	    	InputStream in = entity.getContent();
+//	    	StringBuffer out = new StringBuffer();
+//	    	int n = 1;
+//	    	while (n>0) {
+//	    	byte[] b = new byte[4096];
+//	    	n =  in.read(b);
+//	    	if (n>0) out.append(new String(b, 0, n));
+//	    	}
+//	    	return out.toString();
+//	    	}
+//	    	
+//
+//	    	@Override
+//	    	protected String doInBackground(Void... params) {
+//	    	HttpClient httpClient = new DefaultHttpClient();
+//	    	HttpContext localContext = new BasicHttpContext();
+//	    	HttpGet httpGet = new HttpGet(requesturl);
+//	    	String text = null;
+//	    	try {
+//	    	HttpResponse response = httpClient.execute(httpGet, localContext);
+//	    	HttpEntity entity = response.getEntity();
+//	    	text = getASCIIContentFromEntity(entity);
+//	    	} catch (Exception e) {
+//	    	return e.getLocalizedMessage();
+//	    	}
+//	    	return text;
+//	    	}
+//	    	
+//
+//	    	protected void onPostExecute(String results) {
+//	    	if (results!=null) {
+//	    	}
+//	    	btn.setClickable(true);
+//	    	}
+//	    	}
+
 	 protected void showtext(){
 		 Toast.makeText(this, "Succes", Toast.LENGTH_SHORT).show(); 
 	 }
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-//	
-//	class RequestTask extends AsyncTask<String, String, String>{
+
+	 protected Location getLastBestLocation() {
+		 
+		    
+		    lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE); 
+		    Criteria crit = new Criteria();
+		    crit.setAccuracy(Criteria.ACCURACY_FINE);
+		    crit.setPowerRequirement(Criteria.POWER_LOW); 
+			String tower = lm.getBestProvider(crit, false);
+		    Location location = lm.getLastKnownLocation(tower);
+		    
+		    return location;
+		    
+		
+//		    Location locationGPS = mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+//		    Location locationNet = mLocationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
 //
-//	    @Override
-//	    protected String doInBackground(String... uri) {
-//	        HttpClient httpclient = new DefaultHttpClient();
-//	        HttpResponse response;
-//	        String responseString = null;
-//	        try {
-//	            response = httpclient.execute(new HttpGet(uri[0]));
-//	            StatusLine statusLine = response.getStatusLine();
-//	            if(statusLine.getStatusCode() == HttpStatus.SC_OK){
-//	                ByteArrayOutputStream out = new ByteArrayOutputStream();
-//	                response.getEntity().writeTo(out);
-//	                out.close();
-//	                responseString = out.toString();
-//	            } else{
-//	                //Closes the connection.
-//	                response.getEntity().getContent().close();
-//	                throw new IOException(statusLine.getReasonPhrase());
-//	            }
-//	        } catch (ClientProtocolException e) {
-//	            //TODO Handle problems..
-//	        } catch (IOException e) {
-//	            //TODO Handle problems..
-//	        }
-//	        return responseString;
-//	    }
+//		    long GPSLocationTime = 0;
+//		    if (null != locationGPS) { GPSLocationTime = locationGPS.getTime(); }
 //
-//	    @Override
-//	    protected void onPostExecute(String result) {
-//	        super.onPostExecute(result);
-//	        //Do anything with response..
-//	    }
-//	}
+//		    long NetLocationTime = 0;
+//
+//		    if (null != locationNet) {
+//		        NetLocationTime = locationNet.getTime();
+//		    }
+//
+//		    if ( 0 < GPSLocationTime - NetLocationTime ) {
+//		        return locationGPS;
+//		    }
+//		    else {
+//		        return locationNet;
+//		    }
+		}
 }
