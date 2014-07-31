@@ -20,18 +20,20 @@ public class User implements Serializable{
 	@Id
 	@SequenceGenerator(name="seq",initialValue=101, allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="seq")
-	private int user_id;
+	private int Geoinfo_id;
 	@Column(nullable=false)
 	private String username;
 	@Column
 	private String latitude;
 	@Column
 	private String longtitude;
-	public int getUser_id() {
-		return user_id;
+
+	
+	public int getGeoinfo_id() {
+		return Geoinfo_id;
 	}
-	public void setUser_id(int user_id) {
-		this.user_id = user_id;
+	public void setGeoinfo_id(int geoinfo_id) {
+		Geoinfo_id = geoinfo_id;
 	}
 	public String getUsername() {
 		return username;
