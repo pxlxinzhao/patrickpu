@@ -1,10 +1,21 @@
 package com.gpstracker;
 
+import java.io.IOException;
+import java.io.InputStream;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.protocol.BasicHttpContext;
+import org.apache.http.protocol.HttpContext;
+
 import android.content.Context;
-import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
@@ -18,6 +29,7 @@ public class MainActivity extends ActionBarActivity {
 	EditText username,latitude,longtitude;
 	String requesturl;
 	LocationManager lm;
+	boolean b=true;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -28,34 +40,24 @@ public class MainActivity extends ActionBarActivity {
 		latitude = (EditText)findViewById(R.id.latitude);
 		longtitude = (EditText)findViewById(R.id.longtitude);
 		
-		
 		btn.setOnClickListener(new View.OnClickListener() {
-
+		
+	
 			@Override
 			public void onClick(View v) {
 
-//				requesturl = "http://10.0.2.2:8080/Spring4MVCHelloWorld/map.do"
-//					+ "?user=" + username.toString() + "&lat=" + latitude.toString() + "&lon=" + longtitude.toString();
-//				requesturl = "http://10.0.2.2:8080/Spring4MVCHelloWorld/map.do"
-//						+ "?user=" + "xl" + "&lat=" + "77" + "&lon=" + "77";
-//				btn.setClickable(false);
-//				new LongRunningGetIO().execute();
 				
-//				Double lat = getLastBestLocation().getLatitude();
-//				Double lon = getLastBestLocation().getLongitude();
-
-//				Log.v("tag", "The latitude is " + String.valueOf(lat) + "And the Longtitude is " + String.valueOf(lon));
+				if (isEmpty(username)){ showfailure(); }
+				
+				else{
 				
 				lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE); 
 				LocationListener ll = new mylocationlistener();
 				lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, ll);
 				
+				showsuccess();
 				
-				
-				
-				
-				showtext();
-				
+				}
 				
 			}
 		});
@@ -73,6 +75,12 @@ public class MainActivity extends ActionBarActivity {
 				double pLat = location.getLatitude();
 				latitude.setText(Double.toString(pLat));
 				longtitude.setText(Double.toString(pLong));
+				
+				requesturl = "http://10.0.2.2:8080/Spring4MVCHelloWorld/map.do"
+				+ "?user=" + "Patrick" + "&lat=" + Double.toString(pLat) + "&lon=" + Double.toString(pLong);
+				
+				new LongRunningGetIO().execute();
+				
 			}
 		}
 
@@ -99,80 +107,57 @@ public class MainActivity extends ActionBarActivity {
 	}
 	
 	
-//	  private class LongRunningGetIO extends AsyncTask <Void, Void, String> {
-//	    	
-//	    	
-//	    	protected String getASCIIContentFromEntity(HttpEntity entity) throws IllegalStateException, IOException {
-//	    	InputStream in = entity.getContent();
-//	    	StringBuffer out = new StringBuffer();
-//	    	int n = 1;
-//	    	while (n>0) {
-//	    	byte[] b = new byte[4096];
-//	    	n =  in.read(b);
-//	    	if (n>0) out.append(new String(b, 0, n));
-//	    	}
-//	    	return out.toString();
-//	    	}
-//	    	
-//
-//	    	@Override
-//	    	protected String doInBackground(Void... params) {
-//	    	HttpClient httpClient = new DefaultHttpClient();
-//	    	HttpContext localContext = new BasicHttpContext();
-//	    	HttpGet httpGet = new HttpGet(requesturl);
-//	    	String text = null;
-//	    	try {
-//	    	HttpResponse response = httpClient.execute(httpGet, localContext);
-//	    	HttpEntity entity = response.getEntity();
-//	    	text = getASCIIContentFromEntity(entity);
-//	    	} catch (Exception e) {
-//	    	return e.getLocalizedMessage();
-//	    	}
-//	    	return text;
-//	    	}
-//	    	
-//
-//	    	protected void onPostExecute(String results) {
-//	    	if (results!=null) {
-//	    	}
-//	    	btn.setClickable(true);
-//	    	}
-//	    	}
+	  private class LongRunningGetIO extends AsyncTask <Void, Void, String> {
+	    	
+	    	
+	    	protected String getASCIIContentFromEntity(HttpEntity entity) throws IllegalStateException, IOException {
+	    	InputStream in = entity.getContent();
+	    	StringBuffer out = new StringBuffer();
+	    	int n = 1;
+	    	while (n>0) {
+	    	byte[] b = new byte[4096];
+	    	n =  in.read(b);
+	    	if (n>0) out.append(new String(b, 0, n));
+	    	}
+	    	return out.toString();
+	    	}
+	    	
 
-	 protected void showtext(){
+	    	@Override
+	    	protected String doInBackground(Void... params) {
+	    	HttpClient httpClient = new DefaultHttpClient();
+	    	HttpContext localContext = new BasicHttpContext();
+	    	HttpGet httpGet = new HttpGet(requesturl);
+	    	String text = null;
+	    	try {
+	    	HttpResponse response = httpClient.execute(httpGet, localContext);
+	    	HttpEntity entity = response.getEntity();
+	    	text = getASCIIContentFromEntity(entity);
+	    	} catch (Exception e) {
+	    	return e.getLocalizedMessage();
+	    	}
+	    	return text;
+	    	}
+	    	
+
+	    	protected void onPostExecute(String results) {
+	    	if (results!=null) {
+	    	}
+	    	btn.setClickable(true);
+	    	}
+	    	}
+
+	 private void showsuccess(){
 		 Toast.makeText(this, "Succes", Toast.LENGTH_SHORT).show(); 
 	 }
-
-	 protected Location getLastBestLocation() {
-		 
-		    
-		    lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE); 
-		    Criteria crit = new Criteria();
-		    crit.setAccuracy(Criteria.ACCURACY_FINE);
-		    crit.setPowerRequirement(Criteria.POWER_LOW); 
-			String tower = lm.getBestProvider(crit, false);
-		    Location location = lm.getLastKnownLocation(tower);
-		    
-		    return location;
-		    
-		
-//		    Location locationGPS = mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-//		    Location locationNet = mLocationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-//
-//		    long GPSLocationTime = 0;
-//		    if (null != locationGPS) { GPSLocationTime = locationGPS.getTime(); }
-//
-//		    long NetLocationTime = 0;
-//
-//		    if (null != locationNet) {
-//		        NetLocationTime = locationNet.getTime();
-//		    }
-//
-//		    if ( 0 < GPSLocationTime - NetLocationTime ) {
-//		        return locationGPS;
-//		    }
-//		    else {
-//		        return locationNet;
-//		    }
-		}
+	 private void showfailure(){
+		 Toast.makeText(this, "username is required", Toast.LENGTH_SHORT).show(); 
+	 }
+	 private boolean isEmpty(EditText etText) {
+	        return etText.getText().toString().trim().length() == 0;
+	    }
 }
+
+
+
+
