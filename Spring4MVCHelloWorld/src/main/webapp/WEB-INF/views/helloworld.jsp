@@ -62,6 +62,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
 		        </c:forEach>
 		    </select>
 	    </td>
+
 	</tr>
 	</table>
 	
