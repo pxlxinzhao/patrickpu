@@ -2,6 +2,8 @@ package com.gpstracker;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Calendar;
+import java.util.Date;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -18,6 +20,7 @@ import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -87,9 +90,15 @@ public class MainActivity extends ActionBarActivity {
 				double pLat = location.getLatitude();
 				latitude.setText(Double.toString(pLat));
 				longtitude.setText(Double.toString(pLong));
+				Calendar c = Calendar.getInstance(); 
+				Date d = c.getTime();
+			    String s = d.toString().trim();
+			    
+			    Log.v("tag", s);
 				
 				requesturl = "http://10.0.2.2:8080/Spring4MVCHelloWorld/map.do"
 				+ "?user=" + "Patrick" + "&lat=" + Double.toString(pLat) + "&lon=" + Double.toString(pLong);
+//				+ "&date=" + "201314";
 				
 				new LongRunningGetIO().execute();
 				

@@ -27,8 +27,15 @@ public class User implements Serializable{
 	private String latitude;
 	@Column
 	private String longtitude;
-
+	@Column
+	private String date;
 	
+	public String getDate() {
+		return date;
+	}
+	public void setDate(String date) {
+		this.date = date;
+	}
 	public int getGeoinfo_id() {
 		return Geoinfo_id;
 	}
