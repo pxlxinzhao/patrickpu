@@ -8,6 +8,8 @@
 <!DOCTYPE html>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+
 <html>
   <head>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
@@ -20,6 +22,47 @@
       
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
     <script>
+    
+    time=new Array("Mercedes","Volvo","BMW","porche");
+
+
+    $(function() {
+
+          $('#user').change(function(){
+            populateSelect();
+        });
+        
+    });
+
+
+    function populateSelect(){
+        cat=$('#user').val();
+        $('#time').html('');
+        
+        
+        time.forEach(function(t) { 
+            $('#time').append('<option>'+t+'</option>');
+        });
+        
+/*         if(cat=='car'){
+            cars.forEach(function(t) { 
+                $('#item').append('<option>'+t+'</option>');
+            });
+        }
+        
+        if(cat=='phone'){
+            phones.forEach(function(t) {
+                $('#item').append('<option>'+t+'</option>');
+            });
+        } */
+        
+    } 
+    
+    
+    
+    
+    
+    
 function initialize() {
 
 /*   var myLatlng = new google.maps.LatLng(-25.363882,131.044922); */
@@ -54,7 +97,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
 	 	  Please select the user:
 	   </td>
 	   <td>
-		    <select name="user_drop_down">
+		    <select name="user">
 		        <c:forEach var="user" items="${alluser}">
 		            <option value="${user}">
 		                <c:out value="${user}"/>
@@ -63,10 +106,22 @@ google.maps.event.addDomListener(window, 'load', initialize);
 		    </select>
 	    </td>
 
+  	    
+	    
+	    <td>
+			 <select id="time">
+			 
+			 </select>
+	    </td>
+
+
+
 	</tr>
 	</table>
 	
     <div id="map-canvas"></div>
   </div>
+  
+  <script type="text/javascript" src="js/jquery.js"></script>
   </body>
 </html>
