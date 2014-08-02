@@ -11,6 +11,8 @@ public class GeoTest {
 	
 	public static void main(String args[]){
 		
+		String name = "Patrick";
+		String s = "<c:forEach  var='date' items='${" + name + "}'>" + "<option value='${date}'>"+	"<c:out value='${date}'/>"+ "</option>" +  "</c:forEach>";
 //		List<String> list = new ArrayList<String>();
 //		List<String> list2 = new ArrayList<String>();
 //		
@@ -32,10 +34,10 @@ public class GeoTest {
 //		geo.getMap().put(userid, list);
 //		geo.getMap().put(userid2, list2);
 		
-		Calendar c = Calendar.getInstance(); 
-		Date d = c.getTime();
-	    String s = d.toString().trim();
-	    s.replaceAll("", "&");
+//		Calendar c = Calendar.getInstance(); 
+//		Date d = c.getTime();
+//	    String s = d.toString().trim();
+//	    s.replaceAll("", "&");
 		
 		System.out.println(s);
 	}

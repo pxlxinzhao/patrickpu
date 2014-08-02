@@ -4,10 +4,6 @@
 	Double latitude = Double.parseDouble(lat);
 	Double longtitude = Double.parseDouble(lon);
 %>
-
-<%  
-
-%>
  --%>
 <!DOCTYPE html>
 
@@ -25,34 +21,21 @@
     </style>
       
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
-   
-   
-   
-   
+    
+    
+    
 <script type="text/javascript">
-
-
 function userchanged(){
 	
-	var name = document.getElementById("whichuser").value;
-	alert("You have chosen user: " +  name + " \n Please select time as well");
-	
-	var s;
-	
-	for (i=0; i<shit.length; i++){
-		
-		s = s +  "<option>" +  shit[i] + "</option>";
-	}
-	
-
-	document.getElementById("time").innerHTML = s; 
+	var s = "<c:forEach  var='date' items='${Patrick}'>" + "<option value='${date}'>"+	"<c:out value='${date}'/>"+ "</option>" +  "</c:forEach>";
+	document.getElementById("date").innerHTML = s; 
 }
-
 </script>
-   
 
+
+    
 <script>
-
+ 
 function initialize() {
 
 /*   var myLatlng = new google.maps.LatLng(-25.363882,131.044922); */
@@ -87,9 +70,9 @@ google.maps.event.addDomListener(window, 'load', initialize);
 	 	  Please select the user:
 	   </td>
 	   <td>
-		    <select id="whichuser" name="user"  onchange="userchanged()">
-		        <c:forEach var="user" items="${alluser}">
-		            <option id="userchosen" value="${user}">
+		    <select name="user" onchange="userchanged()">
+		        <c:forEach var="user" items="${alluser}" >
+		            <option value="${user}">
 		                <c:out value="${user}"/>
 		            </option>
 		        </c:forEach>
@@ -99,7 +82,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
   	    
 	    
 	    <td>
-			 <select id="time">
+			 <select id="date" >
 			 
 			 </select>
 	    </td>

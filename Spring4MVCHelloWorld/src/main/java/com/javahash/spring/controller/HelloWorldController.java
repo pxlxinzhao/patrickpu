@@ -82,7 +82,6 @@ public class HelloWorldController {
    			}
    			
 
-   			
 			session.close();
 			
    	        model.addAttribute("map", map);
