@@ -4,6 +4,10 @@
 	Double latitude = Double.parseDouble(lat);
 	Double longtitude = Double.parseDouble(lon);
 %>
+
+<%  
+
+%>
  --%>
 <!DOCTYPE html>
 
@@ -21,48 +25,34 @@
     </style>
       
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
-    <script>
-    
-    time=new Array("Mercedes","Volvo","BMW","porche");
+   
+   
+   
+   
+<script type="text/javascript">
 
 
-    $(function() {
+function userchanged(){
+	
+	var name = document.getElementById("whichuser").value;
+	alert("You have chosen user: " +  name + " \n Please select time as well");
+	
+	var s;
+	
+	for (i=0; i<shit.length; i++){
+		
+		s = s +  "<option>" +  shit[i] + "</option>";
+	}
+	
 
-          $('#user').change(function(){
-            populateSelect();
-        });
-        
-    });
+	document.getElementById("time").innerHTML = s; 
+}
 
+</script>
+   
 
-    function populateSelect(){
-        cat=$('#user').val();
-        $('#time').html('');
-        
-        
-        time.forEach(function(t) { 
-            $('#time').append('<option>'+t+'</option>');
-        });
-        
-/*         if(cat=='car'){
-            cars.forEach(function(t) { 
-                $('#item').append('<option>'+t+'</option>');
-            });
-        }
-        
-        if(cat=='phone'){
-            phones.forEach(function(t) {
-                $('#item').append('<option>'+t+'</option>');
-            });
-        } */
-        
-    } 
-    
-    
-    
-    
-    
-    
+<script>
+
 function initialize() {
 
 /*   var myLatlng = new google.maps.LatLng(-25.363882,131.044922); */
@@ -97,9 +87,9 @@ google.maps.event.addDomListener(window, 'load', initialize);
 	 	  Please select the user:
 	   </td>
 	   <td>
-		    <select name="user">
+		    <select id="whichuser" name="user"  onchange="userchanged()">
 		        <c:forEach var="user" items="${alluser}">
-		            <option value="${user}">
+		            <option id="userchosen" value="${user}">
 		                <c:out value="${user}"/>
 		            </option>
 		        </c:forEach>
