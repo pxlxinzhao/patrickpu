@@ -10,21 +10,28 @@
     }
 </script>
 
-
-
 <script type="text/javascript">
 shit=new Array("Mercedes","Volvo","BMW","porche");
 user=new Array("Pat","aaa","bbb","ccc");
 
 
 function userchanged(){
+
+	alert();
+	var s;
 	
-	 alert();
+	for (i=0; i<shit.length; i++){
+		
+		s = s +  "<option>" +  shit[i] + "</option>";
+	}
 	
-	 document.getElementById("para").innerHTML = "omgsdfadsfadsfadsfasdf";
-	 document.getElementById('time').innerHTML = "<option> shit </option>";
-	 
-	 
+	console.log ( s);
+
+	
+	
+/* 	 document.getElementById("para").innerHTML = "omgsdfadsfadsfadsfasdf"; */
+/* 	 document.getElementById("time").innerHTML =  "<option>" +  "ooo" + "</option>"; */
+	document.getElementById("time").innerHTML = s; 
 }
 
 
@@ -79,7 +86,7 @@ function populateSelect(){
 	    <td>
 			 <select id="time">	 
 			 
-			 <option> ohman </option>
+			<!--  <option> ohman </option> -->
 			 </select>
 	    </td>
 	</tr>
