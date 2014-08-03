@@ -1,7 +1,5 @@
 package com.javahash.spring.DAO;
 
-import java.util.Calendar;
-import java.util.Date;
 
 // Authored by Patrick Pu
 // This is a test case for Geoinfo, two entries of user info are put in memory and printed out

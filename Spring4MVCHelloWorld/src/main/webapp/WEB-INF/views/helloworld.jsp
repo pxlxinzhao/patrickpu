@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 
 <%@ page import="java.util.ArrayList" %>
-<% String selecteduser = request.getParameter("username"); 
+<% String selecteduser = request.getParameter("username");
+	if(selecteduser==null) selecteduser = "";
 	String userlist = request.getParameter(selecteduser);  %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
@@ -102,7 +103,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
 	   <td>
 		    <select id="whichuser" name="user" onchange="userchanged()">
 		    <option selected="selected"><%= selecteduser %></option>
-		        <c:forEach var="user" begin="1" items="${alluser}" >
+		        <c:forEach var="user"  items="${alluser}" >
 		            <option value="${user}">
 		                <c:out value="${user}"/>
 		            </option>

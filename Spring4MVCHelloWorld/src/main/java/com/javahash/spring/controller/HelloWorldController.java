@@ -11,7 +11,6 @@ import java.util.Set;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.SharedSessionContract;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.springframework.stereotype.Controller;
@@ -48,16 +47,21 @@ public class HelloWorldController {
    			}
    			
    			Object[] alluser = set.toArray();
-   			List alluser2 = new ArrayList();
    			
-   			if (username.length() > 0){
+   			System.out.println("alluser length: " + String.valueOf(alluser.length) );
+   			List alluser2 = new ArrayList();
+
+   			if (username!=null){
    				
    				for (Object s : alluser){
    					
    					if((boolean)!((String)s).equals(username))
    					alluser2.add((String)s);
    				}
+   				model.addAttribute("alluser", alluser2);
    			}
+   			
+   			else model.addAttribute("alluser", alluser);
    			
    			
    			Iterator iter = set.iterator();
@@ -98,7 +102,7 @@ public class HelloWorldController {
 	
 			
    	        model.addAttribute("user", usertimelist);
-   	        model.addAttribute("alluser", alluser2);
+//   	        model.addAttribute("alluser", alluser);
    	     
    		   return "helloworld";
     }
