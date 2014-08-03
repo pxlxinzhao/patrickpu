@@ -38,7 +38,13 @@ var myLatlng = new google.maps.LatLng(lat, lon);
   
   var mapOptions = {
     zoom: 4,
-    center: myLatlng
+    center: myLatlng,
+    mapTypeControlOptions: {
+        mapTypeIds: [google.maps.MapTypeId.SATELLITE, 
+                     google.maps.MapTypeId.HYBRID,
+                     google.maps.MapTypeId.ROADMAP]
+    },
+    mapTypeId: google.maps.MapTypeId.ROADMAP
   }
   var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
@@ -56,7 +62,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
   <body>
   
   <div id="big-canvas">
-    <h1> Welcome to GPSTracking System</h1>
+    <h1> Welcome to GPS Tracking System</h1>
     
     
    <!--  label="select user" array="alluser"  -->

@@ -21,8 +21,8 @@ th {padding: 20px}
 	<h1 align="center">Hello World</h1>
 	<table>
 		<tr>
-			<th><a href="http://localhost:8080/Spring4MVCHelloWorld/hello.do" > Hello World Example </a></th>
-			<th><a href="http://localhost:8080/Spring4MVCHelloWorld/map.do" > Tracking Service</a></th>
+			<th><a href="http://localhost:8080/Spring4MVCHelloWorld/hello.do" > Enter GPS Tracking System </a></th>
+<!-- 			<th><a href="http://localhost:8080/Spring4MVCHelloWorld/map.do" > Tracking Service</a></th> -->
 		</tr>
 	</table>
 </div>

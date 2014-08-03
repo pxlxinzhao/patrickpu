@@ -61,8 +61,8 @@ public class MainActivity extends ActionBarActivity {
 				ll = new mylocationlistener();
 				lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, ll);
 				
-				showsuccess();
-				
+				showstarted();
+				btnstart.setClickable(false);
 				}
 				
 			}
@@ -74,6 +74,8 @@ public class MainActivity extends ActionBarActivity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				lm.removeUpdates(ll);
+				showstoped();
+				btnstart.setClickable(true);
 			}
 		});
 	}
@@ -169,8 +171,14 @@ public class MainActivity extends ActionBarActivity {
 	    	}
 	    	}
 
-	 private void showsuccess(){
-		 Toast.makeText(this, "Succes", Toast.LENGTH_SHORT).show(); 
+//	 private void showsuccess(){
+//		 Toast.makeText(this, "Succes", Toast.LENGTH_SHORT).show(); 
+//	 }
+	 private void showstarted(){
+		 Toast.makeText(this, "Started", Toast.LENGTH_LONG).show(); 
+	 }
+	 private void showstoped(){
+		 Toast.makeText(this, "Stoped", Toast.LENGTH_LONG).show(); 
 	 }
 	 private void showfailure(){
 		 Toast.makeText(this, "username is required", Toast.LENGTH_SHORT).show(); 
