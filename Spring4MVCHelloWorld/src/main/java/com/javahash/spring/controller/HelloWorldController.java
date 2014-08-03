@@ -17,13 +17,14 @@ import org.hibernate.cfg.Configuration;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class HelloWorldController { 
 
     @SuppressWarnings({ "rawtypes", "unchecked" })
 	@RequestMapping("/hello")
-    public String hello( Model model) {
+    public String hello( @RequestParam(value="username", required=false) String username,  Model model) {
 
            Map<String, List<String>> map = new HashMap<String, List<String>>();
            List datelist;
@@ -47,6 +48,17 @@ public class HelloWorldController {
    			}
    			
    			Object[] alluser = set.toArray();
+   			List alluser2 = new ArrayList();
+   			
+   			if (username.length() > 0){
+   				
+   				for (Object s : alluser){
+   					
+   					if((boolean)!((String)s).equals(username))
+   					alluser2.add((String)s);
+   				}
+   			}
+   			
    			
    			Iterator iter = set.iterator();
    			
@@ -78,14 +90,15 @@ public class HelloWorldController {
    			 model.addAttribute(ss, datelist);
 			 }
 
-
    			}
-   			
-
-			session.close();
 			
-   	        model.addAttribute("map", map);
-   	        model.addAttribute("alluser", alluser);
+			List usertimelist = map.get(username);
+			
+			session.close();
+	
+			
+   	        model.addAttribute("user", usertimelist);
+   	        model.addAttribute("alluser", alluser2);
    	     
    		   return "helloworld";
     }
