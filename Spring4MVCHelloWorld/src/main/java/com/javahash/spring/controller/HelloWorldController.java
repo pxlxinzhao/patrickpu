@@ -23,7 +23,8 @@ public class HelloWorldController {
 
     @SuppressWarnings({ "rawtypes", "unchecked" })
 	@RequestMapping("/hello")
-    public String hello( @RequestParam(value="username", required=false) String username,  Model model) {
+    public String hello( @RequestParam(value="username", required=false) String username,
+    					@RequestParam(value="date", required=false) String date,  Model model) {
 
            Map<String, List<String>> map = new HashMap<String, List<String>>();
            List datelist;
@@ -98,10 +99,24 @@ public class HelloWorldController {
 			
 			List usertimelist = map.get(username);
 			
+			
+			Query querylat = session.createQuery("Select latitude from User "
+					+ "where username='" + username + "' and date='" + date + "'");
+			
+			Query querylon = session.createQuery("Select longtitude from User "
+					+ "where username='" + username + "' and date='" + date + "'");
+			
+			if (!querylat.list().isEmpty() && !querylon.list().isEmpty()){
+			String latitude = (String) querylat.list().get(0);
+			String longtitude = (String) querylon.list().get(0);
+			model.addAttribute("latitude", latitude);
+		   	model.addAttribute("longtitude", longtitude);
+			System.out.println("latitude is: " + latitude + "     longtitude is: " + longtitude);
+			}
 			session.close();
 	
-			
-   	        model.addAttribute("user", usertimelist);
+				
+	   	     model.addAttribute("user", usertimelist);
 //   	        model.addAttribute("alluser", alluser);
    	     
    		   return "helloworld";

@@ -3,7 +3,8 @@
 <%@ page import="java.util.ArrayList" %>
 <% String selecteduser = request.getParameter("username");
 	if(selecteduser==null) selecteduser = "";
-	String userlist = request.getParameter(selecteduser);  %>
+	String userlist = request.getParameter("selecteduser");  %>
+
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 
@@ -37,6 +38,21 @@ function userchanged(){
 	console.log(name);  */
 }
 
+
+function datechanged(){
+
+	var date = document.getElementById("date").value;
+
+	insertParam("date", date);
+
+/*     var s = "<c:forEach  var='i' items='${Patrick}'>" + "<option value='${i}'>"+"<c:out value='${i}'/>"+ "</option>" +  "</c:forEach>"; 
+
+	document.getElementById("date").innerHTML = s; 
+	
+	
+	console.log(name);  */
+}
+
 function insertParam(key, value)
 {
     key = encodeURI(key); value = encodeURI(value);
@@ -61,18 +77,35 @@ function insertParam(key, value)
     document.location.search = kvp.join('&'); 
 }
 
+function get(name){
+	   if(name=(new RegExp('[?&]'+encodeURIComponent(name)+'=([^&]*)')).exec(location.search))
+	      return decodeURIComponent(name[1]);
+	}
+
 </script>
     
     
-    <script>
+<script>
 
     
 function initialize() {
 
 /*   var myLatlng = new google.maps.LatLng(-25.363882,131.044922); */
-  var myLatlng = new google.maps.LatLng(43.4, -79.2);
+<%--   <%String latitude = request.getParameter("latitude");
+	String longtitude = "35";%> --%>
+
+<%-- var lat= "<%= latitude%>";
+var lon= "<%= longtitude%>"; --%>
+
+var lat= "${latitude}";
+var lon= "${longtitude}";
+console.log(lat);
+console.log(lon);
+
+var myLatlng = new google.maps.LatLng(lat, lon);
+  
   var mapOptions = {
-    zoom: 8,
+    zoom: 4,
     center: myLatlng
   }
   var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
@@ -113,7 +146,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
   	    
 	    
 	    <td>
-			 <select id="date" >
+			 <select id="date" onchange="datechanged()">
 					<c:forEach var="i" items="${user}" >
 			            <option value="${i}">
 			                <c:out value="${i}"/>

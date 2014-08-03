@@ -16,6 +16,17 @@ table { margin-left: auto;
 th {padding: 20px}
 </style>
 
+ <script  type="text/javascript">   
+ 	
+ 		raj();
+ 
+ 
+      function raj(){   
+        <% String str="Welcome to Hello World"; %>   
+        var s="<%=str%>";   
+        alert(s);   
+      }   
+    </script>  
 </head>
 
 <body>
