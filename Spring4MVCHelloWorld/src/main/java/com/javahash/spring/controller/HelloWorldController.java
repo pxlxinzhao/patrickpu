@@ -34,13 +34,9 @@ public class HelloWorldController {
    			applySettings(configuration.getProperties());  
    			SessionFactory factory = configuration.buildSessionFactory(builder.build()); 
    			Session session = factory.openSession();
-//   			Session session1 = factory.openSession();
    			session.beginTransaction();
    			Query query = session.createQuery("Select username from User order by Geoinfo_id DESC");
-   	
 			List list = query.list();
-//   			session.getTransaction().commit();
-   		
 
 			Set set = new HashSet();
    			for (Object s : list){	
@@ -64,11 +60,7 @@ public class HelloWorldController {
    			
    			else model.addAttribute("alluser", alluser);
    			
-   			
    			Iterator iter = set.iterator();
-   			
-
-   		
 			while (iter.hasNext()) {
 			 String ss = (String) iter.next();
 			 if (ss.length()>0){
@@ -77,11 +69,8 @@ public class HelloWorldController {
 							+ "where username='" + ss + "' "   +  "order by Geoinfo_id DESC");
    			  List timelist = query2.list();
    			  datelist = new ArrayList();
-   			  
-   			  for (Object l : timelist){
-   				  
-   				  if ((String) l != null){
-   					  
+   			  for (Object l : timelist){		  
+   				  if ((String) l != null){			  
    					  datelist.add(l);
    				  }
    			  }
@@ -89,16 +78,20 @@ public class HelloWorldController {
    			  for (Object s : datelist){
    				  System.out.println(ss + (String) s);
    			  } 
-   			  
    			  map.put(ss, datelist);
-   			  
    			 model.addAttribute(ss, datelist);
 			 }
-
    			}
 			
 			List usertimelist = map.get(username);
+			List timelist = new ArrayList();
+			timelist.add("");
 			
+			if (usertimelist!=null){
+			for (Object o: usertimelist){
+				timelist.add((String) o);
+			}
+			}
 			
 			Query querylat = session.createQuery("Select latitude from User "
 					+ "where username='" + username + "' and date='" + date + "'");
@@ -115,10 +108,9 @@ public class HelloWorldController {
 			}
 			session.close();
 	
-				
-	   	     model.addAttribute("user", usertimelist);
-//   	        model.addAttribute("alluser", alluser);
-   	     
+
+	   	     model.addAttribute("user", timelist);
+   	    
    		   return "helloworld";
     }
     

@@ -17,85 +17,17 @@
     <style type="text/css">
     <%@include file="css/style.css" %>
     </style>
-      
-    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
     
     <script type="text/javascript">
-    
-  
-    
-function userchanged(){
-
-	var name = document.getElementById("whichuser").value;
-
-	insertParam("username", name);
-
-/*     var s = "<c:forEach  var='i' items='${Patrick}'>" + "<option value='${i}'>"+"<c:out value='${i}'/>"+ "</option>" +  "</c:forEach>"; 
-
-	document.getElementById("date").innerHTML = s; 
-	
-	
-	console.log(name);  */
-}
-
-
-function datechanged(){
-
-	var date = document.getElementById("date").value;
-
-	insertParam("date", date);
-
-/*     var s = "<c:forEach  var='i' items='${Patrick}'>" + "<option value='${i}'>"+"<c:out value='${i}'/>"+ "</option>" +  "</c:forEach>"; 
-
-	document.getElementById("date").innerHTML = s; 
-	
-	
-	console.log(name);  */
-}
-
-function insertParam(key, value)
-{
-    key = encodeURI(key); value = encodeURI(value);
-
-    var kvp = document.location.search.substr(1).split('&');
-
-    var i=kvp.length; var x; while(i--) 
-    {
-        x = kvp[i].split('=');
-
-        if (x[0]==key)
-        {
-            x[1] = value;
-            kvp[i] = x.join('=');
-            break;
-        }
-    }
-
-    if(i<0) {kvp[kvp.length] = [key,value].join('=');}
-
-    //this will reload the page, it's likely better to store this until finished
-    document.location.search = kvp.join('&'); 
-}
-
-function get(name){
-	   if(name=(new RegExp('[?&]'+encodeURIComponent(name)+'=([^&]*)')).exec(location.search))
-	      return decodeURIComponent(name[1]);
-	}
-
-</script>
-    
+    <%@include file="js/js.js" %>
+    </script>
+      
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
     
 <script>
 
     
 function initialize() {
-
-/*   var myLatlng = new google.maps.LatLng(-25.363882,131.044922); */
-<%--   <%String latitude = request.getParameter("latitude");
-	String longtitude = "35";%> --%>
-
-<%-- var lat= "<%= latitude%>";
-var lon= "<%= longtitude%>"; --%>
 
 var lat= "${latitude}";
 var lon= "${longtitude}";
@@ -131,7 +63,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
   <table id="usertable">
    <tr>
 	   <td>
-	 	  Please select the user:
+	 	  Please select a user:
 	   </td>
 	   <td>
 		    <select id="whichuser" name="user" onchange="userchanged()">
@@ -142,9 +74,10 @@ google.maps.event.addDomListener(window, 'load', initialize);
 		            </option>
 		        </c:forEach>
 		    </select>
-	    </td>	
-  	    
-	    
+	    </td>	  
+	    <td>
+	 	  Please select a time:
+	   </td>
 	    <td>
 			 <select id="date" onchange="datechanged()">
 					<c:forEach var="i" items="${user}" >
@@ -154,13 +87,10 @@ google.maps.event.addDomListener(window, 'load', initialize);
 			        </c:forEach>
 			 </select>
 	    </td>
-
 	</tr>
-	</table>
-	
+	</table>	
     <div id="map-canvas"></div>
-  </div>
-  
+  </div> 
   <script type="text/javascript" src="js/jquery.js"></script>
   </body>
 </html>

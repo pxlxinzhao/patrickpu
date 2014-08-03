@@ -14,7 +14,6 @@
 shit=new Array("Mercedes","Volvo","BMW","porche");
 user=new Array("Pat","aaa","bbb","ccc");
 
-
 function userchanged(){
 
 	alert();
@@ -26,36 +25,15 @@ function userchanged(){
 	}
 	
 	console.log ( s);
-
-	
-	
-/* 	 document.getElementById("para").innerHTML = "omgsdfadsfadsfadsfasdf"; */
-/* 	 document.getElementById("time").innerHTML =  "<option>" +  "ooo" + "</option>"; */
 	document.getElementById("time").innerHTML = s; 
 }
 
 
-
 function populateSelect(){
 
-	
     $('#time').html("<option> shit </option>");
-/*     shit.forEach(function(t) { 
-        $('#time').append('<option>'+t+'</option>');
-    }); */
-
 }
-
-
-
 </script>
-
-
-
-
-
-
-
 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -69,10 +47,8 @@ function populateSelect(){
     <option value="1">One</option>
     <option value="2">Two</option>
 </select>
-	
 
-	
-	<tr>
+<!-- 	<tr>
 	   <td>
 	 	  Please select the user:
 	   </td>
@@ -82,19 +58,14 @@ function populateSelect(){
   				  <option value="aaa">aaa</option>
 		    </select>
 	    </td>
- 
 	    <td>
 			 <select id="time">	 
 			 
-			<!--  <option> ohman </option> -->
+			 <option> ohman </option>
 			 </select>
 	    </td>
-	</tr>
-	
-	
-	
-	
-	
+	</tr> -->
+
 	<script type="text/javascript" src="js/jquery.js"></script>
 </body>
 </html>

@@ -93,11 +93,12 @@ public class MainActivity extends ActionBarActivity {
 				Calendar c = Calendar.getInstance(); 
 				Date d = c.getTime();
 			    String s = d.toString().trim();
+			    String un = username.getText().toString();
 			    
-			    Log.v("tag", s);
+			    Log.v("tag", un);
 				
 				requesturl = "http://10.0.2.2:8080/Spring4MVCHelloWorld/map.do"
-				+ "?user=" + "Patrick" + "&lat=" + Double.toString(pLat) + "&lon=" + Double.toString(pLong);
+				+ "?user=" + un + "&lat=" + Double.toString(pLat) + "&lon=" + Double.toString(pLong);
 //				+ "&date=" + "201314";
 				
 				new LongRunningGetIO().execute();

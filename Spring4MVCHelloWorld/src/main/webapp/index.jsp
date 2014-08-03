@@ -1,5 +1,4 @@
 <html>
-
 <head>
 <style>
 div {margin-top: 50px;
@@ -15,22 +14,9 @@ table { margin-left: auto;
 	  }
 th {padding: 20px}
 </style>
-
- <script  type="text/javascript">   
- 	
- 		raj();
- 
- 
-      function raj(){   
-        <% String str="Welcome to Hello World"; %>   
-        var s="<%=str%>";   
-        alert(s);   
-      }   
-    </script>  
 </head>
 
 <body>
-
 <div>
 	<h1 align="center">Hello World</h1>
 	<table>
